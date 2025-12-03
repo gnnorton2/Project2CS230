@@ -5,7 +5,6 @@
 #include <string.h>
 void numConversion(char input) {
     printf("0b");
-    int zeroes = 0;
     for (int i = 3; i >= 0; i--) { //only checking 4 bits
         char bit = (input >> i) & 1;
         printf("%d", bit);
