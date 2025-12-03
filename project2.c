@@ -14,6 +14,7 @@ void numConversion(char input) {
 
 void charConversion(char input) {
     if (input < 'G') {
+        printf("0b");
         char map = input + 9;
         for (int i = 3; i >= 0; i--) { //only checking 4 bits
             char bit = (map >> i) & 1;
@@ -27,19 +28,20 @@ int main() {
 
     printf("Please enter a character or single-digit integer or type X to exit: \n");
     scanf(" %c", &input);
-
-    if (input == 'X') { //if exiting
-       printf("Goodbye");
-            return 0;
+    while (input != 'X') {
+        if (input & (1 << 6)) { //checked 2nd MSB, bit 6 if set
+            printf("%c is a letter: ", input);
+            charConversion(input);
+            printf("\nPlease enter a character or single-digit integer or type X to exit: \n");
+            scanf(" %c", &input);
         }
-    else if (input & (1 << 6)) { //checked 2nd MSB, bit 6 if set
-        printf("%c is a letter: ", input);
-        charConversion(input);
+        else {
+            printf("%c is a num: ", input);
+            numConversion(input);
+            printf("\nPlease enter a character or single-digit integer or type X to exit: \n");
+            scanf(" %c", &input);
+        }
     }
-    else {
-        printf("%c is a num: ", input);
-        numConversion(input);
-    }
-
-    return 0;
+    printf("Goodbye\n");
+        return 0;
 }
